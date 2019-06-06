@@ -1,0 +1,22 @@
+{
+  "name": "psdToHtml",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tscApp": "tsc",
+    "tscInit": "tsc --init"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^12.0.3",
+    "cheerio": "^1.0.0-rc.3",
+    "images": "^3.0.2",
+    "png-to-jpeg": "^1.0.1",
+    "pngjs": "^3.4.0",
+    "psd": "^3.2.0",
+    "typescript": "^3.5.1"
+  }
+}
