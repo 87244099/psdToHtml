@@ -20,8 +20,6 @@ export class PsdDeal {
         this.tree = psdLoaded.tree();
         this.psdJson = this.tree.export();
         this.initTree(this.tree);
-
-        console.log("设计稿解析完毕");
     }
 
     initTree(tree:any): void{
@@ -354,10 +352,11 @@ export class PsdDeal {
         let textNode = treeExportNode.text;     
         var $self = this;
         let textObj = textNode.font;
+        let textSize = this.getTextSize(item, treeExportNode)//不知道什么场景下会不能存在这个值
         //ps里面的字体大小和px不是对应的，直接取文本图层的高度作为行高
         cssList.push(`
             .layer_${item.name} {
-                font-size: ${$self.transUnit(Math.min(item.height, textObj.sizes[0]))};
+                font-size: ${$self.transUnit(textSize)};
                 color: rgba(${textObj.colors[0].join(",")});
                 line-height:${$self.transUnit(item.height)};
                 background: none;
@@ -372,9 +371,11 @@ export class PsdDeal {
         let textNode = treeExportNode.text;     
         let textObj = textNode.font;
         //ps里面的字体大小和px不是对应的，直接取文本图层的高度作为行高
+        let textSize = this.getTextSize(item, treeExportNode)//不知道什么场景下会不能存在这个值
+
         cssList.push(`
             .layer_${item.name} {
-                font-size: ${$self.transUnit(Math.min(item.height, textObj.sizes[0]))};
+                font-size: ${$self.transUnit(textSize)};
                 color: rgba(${textObj.colors[0].join(",")});
                 line-height:${$self.transUnit(item.height)};
                 background: none;
@@ -384,6 +385,14 @@ export class PsdDeal {
                 margin-left:-${$self.transUnit(item.parent.width/2)};
             }
         `);
+    }
+
+    getTextSize(item: any, treeExportNode:any):number{
+        let textNode = treeExportNode.text;     
+        let textObj = textNode.font;
+        //ps里面的字体大小和px不是对应的，直接取文本图层的高度作为行高
+        let textSize = textObj.sizes ? Math.min(item.height, textObj.sizes[0]) : item.height;//不知道什么场景下会不能存在这个值
+        return textSize
     }
 
     transUnit(value:number):string{
@@ -480,7 +489,7 @@ export class PsdDeal {
                 savedCount++;
                 let precent: number = ((savedCount/nodeListLen)*100);
                 let perStr = precent.toFixed(0)+"%";
-                console.log(`保存图片进度:${perStr}`);
+                console.log(`保存页面图片进度:${perStr}`);
             }).catch(function(err: any){
                 console.log(err);
             });

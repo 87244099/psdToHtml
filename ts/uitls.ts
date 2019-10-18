@@ -140,7 +140,6 @@ export namespace Utils {
                         
                     }
                 }
-                console.log("图片判断结果：", (opacity/total)*100 < percent);
                 resolve(opacity/total*100 < percent);
             });
         });
@@ -255,4 +254,5 @@ export namespace Utils {
             });
         });
     }
+
 }

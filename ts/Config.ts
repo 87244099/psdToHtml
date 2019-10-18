@@ -15,3 +15,8 @@ export interface EnvConfig {
     html: string,
     template: string
 };
+
+export interface BootConfig{
+    name:string,
+    type:number
+};
